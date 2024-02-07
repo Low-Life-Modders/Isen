@@ -980,6 +980,8 @@ public class Blocks{
             envRequired |= Env.groundWater;
 
             consumePower(1.5f);
+
+            category = null;
         }};
 
         // ORES
