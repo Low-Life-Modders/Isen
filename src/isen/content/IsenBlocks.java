@@ -46,7 +46,7 @@ import isen.world.blocks.environment.*;
 
 import static mindustry.Vars.*;
 import static mindustry.type.ItemStack.*;
-public class Blocks{
+public class IsenBlocks{
     public static Block 
     // Turrets
     duo, scorch, hail, arc, lancer, scatter, wave, parallax, swarmer, salvo,
