@@ -1,4 +1,4 @@
-package example;
+package isen;
 
 import arc.*;
 import arc.util.*;
@@ -9,10 +9,10 @@ import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
-public class ExampleJavaMod extends Mod{
+public class IsenJavaMod extends Mod{
 
-    public ExampleJavaMod(){
-        Log.info("Loaded ExampleJavaMod constructor.");
+    public IsenJavaMod(){
+        Log.info("Loaded IsenJavaMod constructor.");
 
         //listen for game load event
         Events.on(ClientLoadEvent.class, e -> {
