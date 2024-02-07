@@ -4,6 +4,7 @@ import arc.graphics.*;
 import arc.math.*;
 import arc.struct.*;
 import mindustry.*;
+import mindustry.content.*;
 import mindustry.entities.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
@@ -20,8 +21,11 @@ import mindustry.world.blocks.*;
 import mindustry.world.blocks.campaign.*;
 import mindustry.world.blocks.defense.*;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.defense.turrets.ItemTurret;
+import mindustry.world.blocks.defense.turrets.LaserTurret;
 import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
+import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.heat.*;
 import mindustry.world.blocks.legacy.*;
 import mindustry.world.blocks.liquid.*;
@@ -36,6 +40,10 @@ import mindustry.world.consumers.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
 
+import isen.world.blocks.environment.*;
+
+
+
 import static mindustry.Vars.*;
 import static mindustry.type.ItemStack.*;
 public class Blocks{
@@ -44,16 +52,17 @@ public class Blocks{
     duo, scorch, hail, arc, lancer, scatter, wave, parallax, swarmer, salvo,
     segment, tsunami, fuse, ripple, cyclone, foreshadow, spectre, meltdown,
     // Drills
-    mechanicalDrill, pneumaticDrill, laserDrill, airblastDrill,
+    mechanicalDrill, pneumaticDrill, laserDrill, blastDrill,
     // Pumps
     mechanicalPump, 
     // Factories
 
+    // Ores
+    oreCopper, oreThorium, oreTitanium, oreScrap, oreCoal, oreLead,
     // Misc
-    waterExtractor
+    waterExtractor;
 
     ;
-
 
     public static void load(){
         // Turrets
@@ -131,7 +140,7 @@ public class Blocks{
 
             recoil = 1f;
             rotateSpeed = 15f;
-            inaccuracy = 27f
+            inaccuracy = 27f;
             shootCone = 35f;
 
             scaledHealth = 200;
@@ -209,8 +218,8 @@ public class Blocks{
             );
             size = 2;
             recoil = 0f;
-            reload = 3f;
-            inaccuracy = 5f;
+            reload = 6f;
+            inaccuracy = 10f;
             shootCone = 50f;
             liquidCapacity = 10f;
             shootEffect = Fx.shootLiquid;
@@ -220,10 +229,11 @@ public class Blocks{
         }};
 
         //TODO these may work in space, but what's the point?
+        //You can do this? Wow. Cool.
         lancer = new PowerTurret("lancer"){{
             requirements(Category.turret, with(Items.copper, 60, Items.lead, 70, Items.silicon, 60, Items.titanium, 30));
             range = 165f;
-
+//Can you make a comment in the middle of code? Turns out you can
             shoot.firstShotDelay = 40f;
 
             recoil = 2f;
@@ -238,15 +248,15 @@ public class Blocks{
             moveWhileCharging = false;
             accurateDelay = false;
             shootSound = Sounds.laser;
-            coolant = consumeCoolant(0.2f);
+            coolant = null;
 
-            consumePower(6f);
+            consumePower(12f);
 
             shootType = new LaserBulletType(140){{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
                 //TODO merge
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
-
+//AAAAAAAAAAAAAAAAAAAAAAAA
                 buildingDamageMultiplier = 0.25f;
                 hitEffect = Fx.hitLancer;
                 hitSize = 4;
@@ -291,10 +301,11 @@ public class Blocks{
             heatColor = Color.red;
             recoil = 1f;
             size = 1;
+            inaccuracy = 1f;
             health = 260;
             shootSound = Sounds.spark;
-            consumePower(3.3f);
-            coolant = consumeCoolant(0.1f);
+            consumePower(6.6666f);
+            coolant = null;
         }};
 
         parallax = new TractorBeamTurret("parallax"){{
@@ -304,12 +315,12 @@ public class Blocks{
             size = 2;
             force = 12f;
             scaledForce = 6f;
-            range = 240f;
+            range = 120f;
             damage = 0.3f;
             scaledHealth = 160;
             rotateSpeed = 10;
 
-            consumePower(3f);
+            consumePower(6f);
         }};
 
         swarmer = new ItemTurret("swarmer"){{
@@ -327,20 +338,6 @@ public class Blocks{
 
                     status = StatusEffects.blasted;
                     statusDuration = 60f;
-                }},
-                Items.pyratite, new MissileBulletType(3.7f, 12){{
-                    frontColor = Pal.lightishOrange;
-                    backColor = Pal.lightOrange;
-                    width = 7f;
-                    height = 8f;
-                    shrinkY = 0f;
-                    homingPower = 0.08f;
-                    splashDamageRadius = 20f;
-                    splashDamage = 30f * 1.5f;
-                    makeFire = true;
-                    ammoMultiplier = 5f;
-                    hitEffect = Fx.blastExplosion;
-                    status = StatusEffects.burning;
                 }},
                 Items.surgeAlloy, new MissileBulletType(3.7f, 18){{
                     width = 8f;
@@ -795,7 +792,6 @@ public class Blocks{
                     pointEffectSpace = 20f;
                     damage = 1350;
                     buildingDamageMultiplier = 0.2f;
-                    maxDamageFraction = 0.6f;
                     pierceDamageFactor = 1f;
                     length = brange;
                     hitShake = 6f;
@@ -904,7 +900,6 @@ public class Blocks{
                 hitColor = Pal.meltdownHit;
                 status = StatusEffects.melting;
                 drawSize = 420f;
-                timescaleDamage = true;
 
                 incendChance = 0.4f;
                 incendSpread = 5f;
@@ -989,33 +984,33 @@ public class Blocks{
 
         // ORES
 
-        oreCopper = new OreBlock(liquids.copper){{
+        oreCopper = new LiquidOre(IsenLiquids.copper){{
             oreDefault = true;
             oreThreshold = 0.81f;
             oreScale = 23.47619f;
         }};
 
-        oreLead = new OreBlock(Liquids.lead){{
+        oreLead = new LiquidOre(IsenLiquids.lead){{
             oreDefault = true;
             oreThreshold = 0.828f;
             oreScale = 23.952381f;
         }};
 
-        oreScrap = new OreBlock(Liquids.scrap);
+        oreScrap = new LiquidOre(Liquids.slag);
 
-        oreCoal = new OreBlock(Liquids.coal){{
+        oreCoal = new LiquidOre(IsenLiquids.coal){{
             oreDefault = true;
             oreThreshold = 0.846f;
             oreScale = 24.428572f;
         }};
 
-        oreTitanium = new OreBlock(Liquids.titanium){{
+        oreTitanium = new LiquidOre(IsenLiquids.titanium){{
             oreDefault = true;
             oreThreshold = 0.864f;
             oreScale = 24.904762f;
         }};
 
-        oreThorium = new OreBlock(Liquids.thorium){{
+        oreThorium = new LiquidOre(IsenLiquids.thorium){{
             oreDefault = true;
             oreThreshold = 0.882f;
             oreScale = 25.380953f;
