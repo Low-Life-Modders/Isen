@@ -2,8 +2,8 @@ package isen;
 
 import arc.*;
 import arc.util.*;
-import isen.content.IsenBlocks;
 import isen.content.IsenLiquids;
+import isen.content.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
@@ -33,6 +33,8 @@ public class IsenJavaMod extends Mod{
         Log.info("Loading some example content.");
         IsenLiquids.load();
         IsenBlocks.load();
+        IsenPlanets.load();
+        IsenItems.load();
     }
 
 }
