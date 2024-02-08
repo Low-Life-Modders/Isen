@@ -39,6 +39,9 @@ public class IsenPlanets{
             atmosphereRadOut = 0.3f;
             tidalLock = true;
             orbitSpacing = 2f;
+            accessible = true;
+            visible = true;
+            isLandable();
             totalRadius += 2.6f;
             lightSrcTo = 0.5f;
             lightDstFrom = 0.2f;

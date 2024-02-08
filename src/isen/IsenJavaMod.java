@@ -3,6 +3,7 @@ package isen;
 import arc.*;
 import arc.util.*;
 import isen.content.IsenLiquids;
+import isen.maps.generators.IsenPlanetGenerator;
 import isen.content.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;

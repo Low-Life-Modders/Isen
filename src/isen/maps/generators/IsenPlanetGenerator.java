@@ -211,34 +211,6 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
                 join(mx, my, to.x, to.y);
             }
 
-            void joinLiquid(int x1, int y1, int x2, int y2){
-                float nscl = rand.random(100f, 140f) * 6f;
-                int rad = rand.random(7, 11);
-                int avoid = 2 + rad;
-                var path = pathfind(x1, y1, x2, y2, tile -> (tile.solid() || !tile.floor().isLiquid ? 70f : 0f) + noise(tile.x, tile.y, 2, 0.4f, 1f / nscl) * 500, Astar.manhattan);
-                path.each(t -> {
-                    //don't place liquid paths near the core
-                    if(Mathf.dst2(t.x, t.y, x2, y2) <= avoid * avoid){
-                        return;
-                    }
-
-                    for(int x = -rad; x <= rad; x++){
-                        for(int y = -rad; y <= rad; y++){
-                            int wx = t.x + x, wy = t.y + y;
-                            if(Structs.inBounds(wx, wy, width, height) && Mathf.within(x, y, rad)){
-                                Tile other = tiles.getn(wx, wy);
-                                other.setBlock(Blocks.air);
-                                if(Mathf.within(x, y, rad - 1) && !other.floor().isLiquid){
-                                    Floor floor = other.floor();
-                                    //TODO does not respect tainted floors
-                                    other.setFloor((Floor)(floor == Blocks.sand || floor == Blocks.salt ? Blocks.sandWater : Blocks.darksandTaintedWater));
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-
             void connectLiquid(Room to){
                 if(to == this) return;
 
@@ -250,9 +222,6 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
                 midpoint.sub(width/2f, height/2f).limit(width / 2f / Mathf.sqrt3).add(width/2f, height/2f);
 
                 int mx = (int)midpoint.x, my = (int)midpoint.y;
-
-                joinLiquid(x, y, mx, my);
-                joinLiquid(mx, my, to.x, to.y);
             }
         }
 

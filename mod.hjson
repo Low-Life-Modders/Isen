@@ -8,7 +8,7 @@ name: "isen"
 author: "[red]CamoGekko [white]and [blue]LiterallyJustMindustryModder"
 
 #the fully qualified main class of the mod
-main: "src.isen.IsenJavaMod"
+main: "isen.IsenJavaMod"
 
 #the mod description as seen in the mod dialog
 description: "A mod aiming to add a more grind-y experience to the game"
