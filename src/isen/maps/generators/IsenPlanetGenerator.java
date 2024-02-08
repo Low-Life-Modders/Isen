@@ -17,9 +17,8 @@ import mindustry.maps.generators.*;
 import arc.math.*;
 import mindustry.ai.*;
 import mindustry.ai.BaseRegistry.BasePart;
-import mindustry.world.blocks.environment.*;
 import static mindustry.Vars.*;
-
+@SuppressWarnings("unused")
 public abstract class IsenPlanetGenerator extends PlanetGenerator{
     BaseGenerator basegen = new BaseGenerator();
     public int baseSeed = 0;
@@ -53,6 +52,7 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
     protected @Nullable Sector sector;
 
     /** Should generate sector bases for a planet. */
+  
     public void generateSector(Sector sector){
         Ptile tile = sector.tile;
 

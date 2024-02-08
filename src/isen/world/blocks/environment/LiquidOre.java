@@ -14,18 +14,16 @@ import static mindustry.Vars.*;
 /**An overlay ore for a specific item type.*/
 public class LiquidOre extends OverlayFloor{
 
-    private boolean useColor;
+
     private Object mapColor;
     private int variants;
-    private Liquid itemDrop;
-    private String localizedName;
-    private boolean wallOre;
     private Liquid liquid;
+    private boolean wallOre;
 
     public LiquidOre(String name, Liquid ore){
         super(name);
         this.localizedName = ore.localizedName;
-        this.itemDrop = ore;
+        this.liquid = ore;
         this.variants = 3;
         ((Color) this.mapColor).set(ore.color);
         this.useColor = true;
@@ -43,7 +41,7 @@ public class LiquidOre extends OverlayFloor{
     }
 
     public void setup(Liquid ore){
-        this.localizedName = ore.localizedName + (wallOre ? " " + Core.bundle.get("wallore") : "");
+        this.localizedName = ore.localizedName;
         this.liquid = ore;
         ((Color) this.mapColor).set(ore.color);
     }
@@ -84,7 +82,7 @@ public class LiquidOre extends OverlayFloor{
         super.init();
 
         if(itemDrop != null){
-            setup(itemDrop);
+            setup(liquid);
         }else{
             throw new IllegalArgumentException(name + " must have an item drop!");
         }
