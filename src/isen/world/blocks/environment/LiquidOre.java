@@ -18,7 +18,6 @@ public class LiquidOre extends OverlayFloor{
     private Object mapColor;
     private int variants;
     private Liquid liquid;
-    private boolean wallOre;
 
     public LiquidOre(String name, Liquid ore){
         super(name);
