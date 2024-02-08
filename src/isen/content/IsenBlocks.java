@@ -969,21 +969,6 @@ public class IsenBlocks{
             consumeLiquid(Liquids.water, 0.1f).boost();
         }};
 
-        waterExtractor = new SolidPump("water-extractor"){{
-            requirements(Category.production, with(Items.metaglass, 30, Items.graphite, 30, Items.lead, 30, Items.copper, 30));
-            result = Liquids.water;
-            pumpAmount = 0.11f;
-            size = 2;
-            liquidCapacity = 30f;
-            rotateSpeed = 1.4f;
-            attribute = Attribute.water;
-            envRequired |= Env.groundWater;
-
-            consumePower(1.5f);
-
-            category = null;
-        }};
-
         // ORES
 
         oreCopper = new LiquidOre(IsenLiquids.copper){{
@@ -1018,6 +1003,13 @@ public class IsenBlocks{
             oreScale = 25.380953f;
         }};
 
+        /* This whole section below is only for hiding existing blocks, do not add something
+         * that doesnt have said function
+         */
+
+         waterExtractor = new SolidPump("water-extractor"){{
+            category = null;
+        }};
 
     }
 }

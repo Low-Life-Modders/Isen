@@ -6,6 +6,7 @@ import arc.math.*;
 import arc.math.geom.*;
 import arc.struct.*;
 import arc.util.*;
+import isen.maps.generators.*;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.game.*;
@@ -50,8 +51,6 @@ public class IsenPlanets{
             iconColor = Color.valueOf("8c826b");
             hiddenItems.addAll(Items.erekirItems).removeAll(Items.serpuloItems);
             enemyBuildSpeedMultiplier = 0.4f;
-
-            //TODO disallowed for now
             allowLaunchToNumbered = false;
 
             //TODO SHOULD there be lighting?

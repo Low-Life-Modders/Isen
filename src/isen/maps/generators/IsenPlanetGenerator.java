@@ -42,15 +42,11 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
     };
 
     ObjectMap<Block, Block> dec = ObjectMap.of(
-        Blocks.sporeMoss, Blocks.sporeCluster,
-        Blocks.moss, Blocks.sporeCluster,
-        Blocks.taintedWater, Blocks.water,
-        Blocks.darksandTaintedWater, Blocks.darksandWater
+        
     );
 
     ObjectMap<Block, Block> tars = ObjectMap.of(
-        Blocks.sporeMoss, Blocks.shale,
-        Blocks.moss, Blocks.shale
+        
     );
 
     protected IntSeq ints = new IntSeq();
@@ -81,7 +77,9 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
             }
         }
 
-        if(any){
+
+        //TODO Tweak the base generation 
+        if(sector.id == 3 || sector.id == 5 || sector.id == 9 || sector.id == 16){
             sector.generateEnemyBase = true;
         }
     }
@@ -127,6 +125,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         }
 
 
+
+        //TODO Maybe customize weather a little more
         boolean hasSnow = true;
         boolean hasRain = false;
         boolean hasDesert = true;
@@ -308,6 +308,7 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
 
         boolean naval = (float)waters / total >= 0.19f;
 
+        //TODO mostly useless function but breaks if i remove it
         //create water pathway if the map is flooded
         if(naval){
             for(Room room : enemies){
@@ -321,6 +322,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         pass((x, y) -> {
             return;
         });
+
+        //TODO make this do ice and snow instead of water 
 
         if(naval){
             int deepRadius = 2;
@@ -353,6 +356,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         float nmag = 0.5f;
         float scl = 1f;
         float addscl = 1.3f;
+
+        // Ore generation
 
         if(Simplex.noise3d(seed, 2, 0.5, scl, sector.tile.v.x, sector.tile.v.y, sector.tile.v.z)*nmag + poles > 0.25f*addscl){
             ores.add(IsenBlocks.oreCoal);
@@ -422,6 +427,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         float difficulty = sector.threat;
         ints.clear();
         ints.ensureCapacity(width * height / 4);
+
+// TODO Tweak ruin spawn rate because i probably set it way too high
 
         int ruinCount = rand.random(0, 7);
         if(ruinCount > 0){
