@@ -3,10 +3,8 @@ package isen;
 import arc.*;
 import arc.util.*;
 import isen.content.IsenLiquids;
-import isen.maps.generators.IsenPlanetGenerator;
 import isen.content.*;
 import mindustry.game.EventType.*;
-import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.ui.dialogs.*;
 
@@ -31,7 +29,7 @@ public class IsenJavaMod extends Mod{
 
     @Override
     public void loadContent(){
-        Log.info("Loading some example content.");
+        Log.info("Lo and Behold");
         IsenLiquids.load();
         IsenBlocks.load();
         IsenPlanets.load();
