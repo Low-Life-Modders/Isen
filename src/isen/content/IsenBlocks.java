@@ -13,11 +13,10 @@ import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
-import mindustry.world.blocks.defense.turrets.ItemTurret;
-import mindustry.world.blocks.defense.turrets.LaserTurret;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
+import mindustry.content.Liquids;
 
 import isen.world.blocks.environment.*;
 
@@ -36,11 +35,9 @@ public class IsenBlocks{
     // Factories
 
     // Ores
-    oreCopper, oreThorium, oreTitanium, oreScrap, oreCoal, oreLead,
+    oreCopper, oreThorium, oreTitanium, oreScrap, oreCoal, oreLead, ice,
     // Misc
     waterExtractor;
-
-    ;
 
     public static void load(){
         // Turrets
@@ -818,6 +815,11 @@ public class IsenBlocks{
             consumeLiquid(Liquids.water, 0.1f).boost();
         }};
 
+        mechanicalPump = new Drill("mechanical-pump"){{
+            requirements(Category.liquid, with(Items.copper, 15, Items.metaglass, 10));
+            tier = 0;
+        }};
+
         // ORES
 
         oreCopper = new LiquidOre(IsenLiquids.copper){{
@@ -852,11 +854,21 @@ public class IsenBlocks{
             oreScale = 25.380953f;
         }};
 
+        ice = new LiquidOre(Liquids.water){{
+            oreDefault = true;
+            oreThreshold = 0.7f;
+            oreScale = 40f;
+        }};
+
         /* This whole section below is only for hiding existing blocks, do not add something
          * that doesnt have said function
          */
 
          waterExtractor = new SolidPump("water-extractor"){{
+            category = null;
+        }};
+
+        mechanicalPump = new Pump("mechanical-pump"){{
             category = null;
         }};
 

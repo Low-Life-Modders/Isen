@@ -79,8 +79,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         }
 
 
-        //TODO Tweak the base generation 
-        if(sector.id == 3 || sector.id == 5 || sector.id == 9 || sector.id == 16 || sector.id == 25 || sector.id == 26 || sector.id == 27){
+        //TODO Balance base generation
+        if(sector.id * 0.1 > 70){
             sector.generateEnemyBase = true;
         }
     }
@@ -347,7 +347,7 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
                         }
                     }
 
-                    floor = floor == Blocks.water ? Blocks.deepwater : Blocks.taintedWater;
+                    floor = floor == Blocks.snow ? Blocks.ice : Blocks.iceSnow;
                 }
             });
         }
