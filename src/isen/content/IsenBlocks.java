@@ -7,17 +7,17 @@ import mindustry.entities.*;
 import mindustry.entities.bullet.*;
 import mindustry.entities.effect.*;
 import mindustry.entities.part.*;
+import mindustry.entities.part.DrawPart.PartProgress;
 import mindustry.entities.pattern.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.defense.turrets.*;
+import mindustry.world.blocks.environment.OreBlock;
 import mindustry.world.blocks.production.*;
 import mindustry.world.draw.*;
 import mindustry.world.meta.*;
-import mindustry.content.Liquids;
-
 import isen.world.blocks.environment.*;
 
 
@@ -203,8 +203,6 @@ public class IsenBlocks{
             flags = EnumSet.of(BlockFlag.turret, BlockFlag.extinguisher);
         }};
 
-        //TODO these may work in space, but what's the point?
-        //You can do this? Wow. Cool.
         lancer = new PowerTurret("lancer"){{
             requirements(Category.turret, with(Items.copper, 60, Items.lead, 70, Items.silicon, 60, Items.titanium, 30));
             range = 165f;
@@ -229,9 +227,8 @@ public class IsenBlocks{
 
             shootType = new LaserBulletType(140){{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
-                //TODO merge
+
                 chargeEffect = new MultiEffect(Fx.lancerLaserCharge, Fx.lancerLaserChargeBegin);
-//AAAAAAAAAAAAAAAAAAAAAAAA
                 buildingDamageMultiplier = 0.25f;
                 hitEffect = Fx.hitLancer;
                 hitSize = 4;
@@ -949,6 +946,15 @@ public class IsenBlocks{
             tier = 0;
         }};
 
+        waterExtractor = new Drill("water-extractor"){{
+            requirements(Category.production, with(Items.metaglass, 30, Items.graphite, 30, Items.lead, 30, Items.copper, 30));
+            size = 2;
+            rotateSpeed = 1.4f;
+            tier = 0;
+
+            consumePower(1.7f);
+        }};
+
         // ORES
 
         oreCopper = new LiquidOre(IsenLiquids.copper){{
@@ -983,7 +989,7 @@ public class IsenBlocks{
             oreScale = 25.380953f;
         }};
 
-        ice = new LiquidOre(Liquids.water){{
+        ice = new OreBlock(IsenItems.ice){{
             oreDefault = true;
             oreThreshold = 0.7f;
             oreScale = 40f;
