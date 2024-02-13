@@ -79,8 +79,8 @@ public abstract class IsenPlanetGenerator extends PlanetGenerator{
         }
 
 
-        //TODO Tweak the base generation 
-        if(sector.id * 0.1 > 7){
+        //TODO Balance base generation
+        if(sector.id * 0.1 > 70){
             sector.generateEnemyBase = true;
         }
     }
