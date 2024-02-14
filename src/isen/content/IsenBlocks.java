@@ -338,7 +338,7 @@ public class IsenBlocks{
 
             shootY = 4.5f;
             reload = 30f;
-            inaccuracy = 10f;
+            inaccuracy = 15f;
             range = 240f;
             consumeAmmoOnce = false;
             size = 2;
@@ -347,18 +347,12 @@ public class IsenBlocks{
             envEnabled |= Env.space;
 
             limitRange(5f);
-            coolant = consumeCoolant(0.3f);
+            coolant = null(0.3f);
         }};
 
         salvo = new ItemTurret("salvo"){{
             requirements(Category.turret, with(Items.copper, 100, Items.graphite, 80, Items.titanium, 50));
             ammo(
-                Items.copper,  new BasicBulletType(2.5f, 11){{
-                    width = 7f;
-                    height = 9f;
-                    lifetime = 60f;
-                    ammoMultiplier = 2;
-                }},
                 Items.graphite, new BasicBulletType(3.5f, 20){{
                     width = 9f;
                     height = 12f;
@@ -381,24 +375,7 @@ public class IsenBlocks{
 
                     makeFire = true;
                     lifetime = 60f;
-                }},
-                Items.silicon, new BasicBulletType(3f, 15, "bullet"){{
-                    width = 7f;
-                    height = 9f;
-                    homingPower = 0.1f;
-                    reloadMultiplier = 1.5f;
-                    ammoMultiplier = 5;
-                    lifetime = 60f;
-                }},
-                Items.thorium, new BasicBulletType(4f, 29, "bullet"){{
-                    width = 10f;
-                    height = 13f;
-                    shootEffect = Fx.shootBig;
-                    smokeEffect = Fx.shootBigSmoke;
-                    ammoMultiplier = 4;
-                    lifetime = 60f;
                 }}
-            );
 
             drawer = new DrawTurret(){{
                 parts.add(new RegionPart("-side"){{
@@ -418,6 +395,8 @@ public class IsenBlocks{
             range = 190f;
             reload = 31f;
             consumeAmmoOnce = false;
+            targetGround = false;
+            collidesGround = false;
             ammoEjectBack = 3f;
             recoil = 0f;
             shake = 1f;
@@ -438,7 +417,7 @@ public class IsenBlocks{
             scaledHealth = 250;
             range = 180f;
             hasPower = true;
-            consumePower(8f);
+            consumePower(16f);
             size = 2;
             shootLength = 5f;
             bulletDamage = 30f;
@@ -461,17 +440,6 @@ public class IsenBlocks{
                     damage = 0.2f;
                     layer = Layer.bullet - 2f;
                 }},
-                Liquids.slag,  new LiquidBulletType(Liquids.slag){{
-                    lifetime = 49f;
-                    speed = 4f;
-                    knockback = 1.3f;
-                    puddleSize = 8f;
-                    orbSize = 4f;
-                    damage = 4.75f;
-                    drag = 0.001f;
-                    ammoMultiplier = 0.4f;
-                    statusDuration = 60f * 4f;
-                }},
                 Liquids.cryofluid, new LiquidBulletType(Liquids.cryofluid){{
                     lifetime = 49f;
                     speed = 4f;
@@ -482,18 +450,6 @@ public class IsenBlocks{
                     ammoMultiplier = 0.4f;
                     statusDuration = 60f * 4f;
                     damage = 0.2f;
-                }},
-                Liquids.oil, new LiquidBulletType(Liquids.oil){{
-                    lifetime = 49f;
-                    speed = 4f;
-                    knockback = 1.3f;
-                    puddleSize = 8f;
-                    orbSize = 4f;
-                    drag = 0.001f;
-                    ammoMultiplier = 0.4f;
-                    statusDuration = 60f * 4f;
-                    damage = 0.2f;
-                    layer = Layer.bullet - 2f;
                 }}
             );
             size = 3;
@@ -501,6 +457,7 @@ public class IsenBlocks{
             shoot.shots = 2;
             velocityRnd = 0.1f;
             inaccuracy = 4f;
+            consumePower(4f);
             recoil = 1f;
             shootCone = 45f;
             liquidCapacity = 40f;
@@ -534,31 +491,15 @@ public class IsenBlocks{
                 Items.titanium, new ShrapnelBulletType(){{
                     length = brange;
                     damage = 66f;
-                    ammoMultiplier = 4f;
+                    ammoMultiplier = 2f;
                     width = 17f;
                     reloadMultiplier = 1.3f;
-                }},
-                Items.thorium, new ShrapnelBulletType(){{
-                    length = brange;
-                    damage = 105f;
-                    ammoMultiplier = 5f;
-                    toColor = Pal.thoriumPink;
-                    shootEffect = smokeEffect = Fx.thoriumShoot;
                 }}
-            );
         }};
 
         ripple = new ItemTurret("ripple"){{
             requirements(Category.turret, with(Items.copper, 150, Items.graphite, 135, Items.titanium, 60));
             ammo(
-                Items.graphite, new ArtilleryBulletType(3f, 20){{
-                    knockback = 0.8f;
-                    lifetime = 80f;
-                    width = height = 11f;
-                    collidesTiles = false;
-                    splashDamageRadius = 25f * 0.75f;
-                    splashDamage = 33f;
-                }},
                 Items.silicon, new ArtilleryBulletType(3f, 20){{
                     knockback = 0.8f;
                     lifetime = 80f;
@@ -570,37 +511,7 @@ public class IsenBlocks{
                     ammoMultiplier = 3f;
                     homingPower = 0.08f;
                     homingRange = 50f;
-                }},
-                Items.pyratite, new ArtilleryBulletType(3f, 24){{
-                    hitEffect = Fx.blastExplosion;
-                    knockback = 0.8f;
-                    lifetime = 80f;
-                    width = height = 13f;
-                    collidesTiles = false;
-                    splashDamageRadius = 25f * 0.75f;
-                    splashDamage = 45f;
-                    status = StatusEffects.burning;
-                    statusDuration = 60f * 12f;
-                    frontColor = Pal.lightishOrange;
-                    backColor = Pal.lightOrange;
-                    makeFire = true;
-                    trailEffect = Fx.incendTrail;
-                    ammoMultiplier = 4f;
-                }},
-                Items.blastCompound, new ArtilleryBulletType(2f, 20, "shell"){{
-                    hitEffect = Fx.blastExplosion;
-                    knockback = 0.8f;
-                    lifetime = 80f;
-                    width = height = 14f;
-                    collidesTiles = false;
-                    ammoMultiplier = 4f;
-                    splashDamageRadius = 45f * 0.75f;
-                    splashDamage = 55f;
-                    backColor = Pal.missileYellowBack;
-                    frontColor = Pal.missileYellow;
-
-                    status = StatusEffects.blasted;
-                }},
+                }}
                 Items.plastanium, new ArtilleryBulletType(3.4f, 20, "shell"){{
                     hitEffect = Fx.plasticExplosion;
                     knockback = 1f;
@@ -628,14 +539,14 @@ public class IsenBlocks{
             targetAir = false;
             size = 3;
             shoot.shots = 4;
-            inaccuracy = 12f;
+            inaccuracy = 24f;
             reload = 60f;
             ammoEjectBack = 5f;
             ammoUseEffect = Fx.casing3Double;
             ammoPerShot = 2;
             velocityRnd = 0.2f;
             recoil = 6f;
-            shake = 2f;
+            shake = 200f;
             range = 290f;
             minRange = 50f;
             coolant = consumeCoolant(0.3f);
@@ -668,38 +579,7 @@ public class IsenBlocks{
                     fragBullets = 4;
                     explodeRange = 20f;
                     collidesGround = true;
-                }},
-                Items.blastCompound, new FlakBulletType(4f, 8){{
-                    shootEffect = Fx.shootBig;
-                    ammoMultiplier = 5f;
-                    splashDamage = 45f;
-                    splashDamageRadius = 60f;
-                    collidesGround = true;
-
-                    status = StatusEffects.blasted;
-                    statusDuration = 60f;
-                }},
-                Items.plastanium, new FlakBulletType(4f, 8){{
-                    ammoMultiplier = 4f;
-                    splashDamageRadius = 40f;
-                    splashDamage = 37.5f;
-                    fragBullet = new BasicBulletType(2.5f, 12, "bullet"){{
-                        width = 10f;
-                        height = 12f;
-                        shrinkY = 1f;
-                        lifetime = 15f;
-                        backColor = Pal.plastaniumBack;
-                        frontColor = Pal.plastaniumFront;
-                        despawnEffect = Fx.none;
-                    }};
-                    fragBullets = 6;
-                    hitEffect = Fx.plasticExplosion;
-                    frontColor = Pal.plastaniumFront;
-                    backColor = Pal.plastaniumBack;
-                    shootEffect = Fx.shootBig;
-                    collidesGround = true;
-                    explodeRange = 20f;
-                }},
+                }}
                 Items.surgeAlloy, new FlakBulletType(4.5f, 13){{
                     ammoMultiplier = 5f;
                     splashDamage = 50f * 1.5f;
@@ -734,7 +614,7 @@ public class IsenBlocks{
                 }
             }};
 
-            reload = 8f;
+            reload = 16f;
             range = 200f;
             size = 3;
             recoil = 1.5f;
@@ -743,14 +623,14 @@ public class IsenBlocks{
             inaccuracy = 10f;
             shootCone = 30f;
             shootSound = Sounds.shootSnap;
-            coolant = consumeCoolant(0.3f);
+            coolant = null;
 
             scaledHealth = 145;
             limitRange();
         }};
 
         foreshadow = new ItemTurret("foreshadow"){{
-            float brange = range = 500f;
+            float brange = range = 250f;
 
             requirements(Category.turret, with(Items.copper, 1000, Items.metaglass, 600, Items.surgeAlloy, 300, Items.plastanium, 200, Items.silicon, 600));
             ammo(
@@ -772,9 +652,9 @@ public class IsenBlocks{
             );
 
             maxAmmo = 40;
-            ammoPerShot = 5;
+            ammoPerShot = 10;
             rotateSpeed = 2f;
-            reload = 200f;
+            reload = 400f;
             ammoUseEffect = Fx.casing3Double;
             recoil = 5f;
             cooldownTime = reload;
@@ -795,15 +675,6 @@ public class IsenBlocks{
         spectre = new ItemTurret("spectre"){{
             requirements(Category.turret, with(Items.copper, 900, Items.graphite, 300, Items.surgeAlloy, 250, Items.plastanium, 175, Items.thorium, 250));
             ammo(
-                Items.graphite, new BasicBulletType(7.5f, 50){{
-                    hitSize = 4.8f;
-                    width = 15f;
-                    height = 21f;
-                    shootEffect = Fx.shootBig;
-                    ammoMultiplier = 4;
-                    reloadMultiplier = 1.7f;
-                    knockback = 0.3f;
-                }},
                 Items.thorium, new BasicBulletType(8f, 80){{
                     hitSize = 5;
                     width = 16f;
@@ -831,7 +702,7 @@ public class IsenBlocks{
                     splashDamageRadius = 25f;
                 }}
             );
-            reload = 7f;
+            reload = 14f;
             recoilTime = reload * 2f;
             coolantMultiplier = 0.5f;
             ammoUseEffect = Fx.casing3;
@@ -845,7 +716,7 @@ public class IsenBlocks{
             shootSound = Sounds.shootBig;
 
             scaledHealth = 160;
-            coolant = consumeCoolant(1f);
+            coolant = null;//cowseatgrass
 
             limitRange();
         }};
@@ -880,11 +751,11 @@ public class IsenBlocks{
             }};
 
             scaledHealth = 200;
-            coolant = consumeCoolant(0.5f);
-            consumePower(17f);
+            coolant = consumeCoolant(10f);
+            consumePower(34f);
         }};
 
-        // DRILLS
+        // DRILL
 
         mechanicalDrill = new Drill("mechanical-drill"){{
             requirements(Category.production, with(Items.copper, 12));
