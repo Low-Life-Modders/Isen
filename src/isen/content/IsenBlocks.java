@@ -347,7 +347,7 @@ public class IsenBlocks{
             envEnabled |= Env.space;
 
             limitRange(5f);
-            coolant = null(0.3f);
+            coolant = null;
         }};
 
         salvo = new ItemTurret("salvo"){{
@@ -375,7 +375,7 @@ public class IsenBlocks{
 
                     makeFire = true;
                     lifetime = 60f;
-                }}
+                }},
 
             drawer = new DrawTurret(){{
                 parts.add(new RegionPart("-side"){{
@@ -389,14 +389,13 @@ public class IsenBlocks{
                     progress = PartProgress.recoil;
                     moveY = -2.5f;
                 }});
-            }};
+            }});
 
             size = 2;
             range = 190f;
             reload = 31f;
             consumeAmmoOnce = false;
             targetGround = false;
-            collidesGround = false;
             ammoEjectBack = 3f;
             recoil = 0f;
             shake = 1f;
@@ -494,7 +493,7 @@ public class IsenBlocks{
                     ammoMultiplier = 2f;
                     width = 17f;
                     reloadMultiplier = 1.3f;
-                }}
+                }});
         }};
 
         ripple = new ItemTurret("ripple"){{
@@ -511,7 +510,7 @@ public class IsenBlocks{
                     ammoMultiplier = 3f;
                     homingPower = 0.08f;
                     homingRange = 50f;
-                }}
+                }},
                 Items.plastanium, new ArtilleryBulletType(3.4f, 20, "shell"){{
                     hitEffect = Fx.plasticExplosion;
                     knockback = 1f;
@@ -579,7 +578,7 @@ public class IsenBlocks{
                     fragBullets = 4;
                     explodeRange = 20f;
                     collidesGround = true;
-                }}
+                }},
                 Items.surgeAlloy, new FlakBulletType(4.5f, 13){{
                     ammoMultiplier = 5f;
                     splashDamage = 50f * 1.5f;

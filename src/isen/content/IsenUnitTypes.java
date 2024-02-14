@@ -10,18 +10,18 @@ public class IsenUnitTypes {
 
     public void load(){
         miden = new UnitType("miden"){{
-            speed = 0.5f;
-            hitSize = 8f;
+            speed = 2f;
+            hitSize = 6f;
             health = 150;
-            weapons.add(new Weapon("large-weapon"){{
+            weapons.add(new Weapon("small-mount-weapon"){{
                 reload = 13f;
                 x = 4f;
                 y = 2f;
-                top = false;
+                top = true;
                 ejectEffect = Fx.casing1;
-                bullet = new BasicBulletType(2.5f, 9){{
-                    width = 7f;
-                    height = 9f;
+                bullet = new BasicBulletType(3f, 8f){{
+                    width = 4f;
+                    height = 11f;
                     lifetime = 60f;
                 }};
             }});
