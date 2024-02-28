@@ -874,3 +874,23 @@ public class IsenBlocks{
 
     }
 }
+
+//Factories
+
+separator = new Separator("separator"){{
+    requirements(Category.crafting, with(Items.copper, 30, Items.titanium, 25));
+    results = with(
+        Items.copper, 5,
+        Items.lead, 3,
+        Items.graphite, 2,
+        Items.titanium, 2
+    );
+    hasPower = true;
+    craftTime = 35f;
+    size = 2;
+
+    consumePower(1.1f);
+    consumeLiquid(Liquids.slag, 4f / 60f);
+
+    drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawRegion("-spinner", 3, true), new DrawDefault());
+}};
